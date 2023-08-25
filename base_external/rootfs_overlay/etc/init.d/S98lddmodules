@@ -6,7 +6,7 @@ module_dir=/lib/modules/`uname -r`/extra
 case "$1" in
         start)
                 echo "Loading modules"
-		for module in faulty scull; do
+		for module in aesdchar; do
 			device=$module
 			insmod ${module_dir}/${module}.ko $* || exit 1
 			echo "Get the major number (allocated with allocate_chrdev_region) from /proc/devices"
@@ -22,11 +22,10 @@ case "$1" in
 				echo "No device found in /proc/devices for driver ${module} (this driver may not allocate a device)"
 			fi
 		done
-		modprobe hello.ko $* || exit 1
                 ;;
         stop)
                 echo "Unloading modules"
-		for module in faulty scull hello; do
+		for module in aesdchar; do
 			device=$module
 			# invoke rmmod with all arguments we got
 			rmmod $module || exit 1
